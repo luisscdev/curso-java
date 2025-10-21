@@ -1,8 +1,15 @@
-package org.app.demo.model;
+package org.app.apidemo.entity;
 
-import org.app.demo.common.StatusType;
+import jakarta.persistence.*;
 
-public class Persona {
+import java.io.Serializable;
+
+@Entity
+@Table(name = "persona")
+public class Persona implements Serializable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
     public Long id;
     private String identificacion;
     private String nombre;
@@ -11,9 +18,7 @@ public class Persona {
     private String correo;
     private String estado;
 
-
     public Persona() {
-        this.estado = StatusType.ACTIVO.name();
     }
 
     public Long getId() {

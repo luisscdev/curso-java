@@ -4,15 +4,17 @@ import jakarta.annotation.PostConstruct;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.context.FacesContext;
+import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import org.app.demo.common.JsfUtils;
+import org.app.demo.common.Utils;
 import org.app.demo.model.UsuarioSession;
 
 import java.io.Serializable;
 
 @Named
-@RequestScoped
+@ViewScoped
 public class LoginMB implements Serializable {
     @Inject
     private UsuarioSession us;
@@ -25,23 +27,19 @@ public class LoginMB implements Serializable {
 
     }
 
-    public void addMessage(FacesMessage.Severity severity, String summary, String detail) {
-        FacesContext.getCurrentInstance().
-                addMessage(null, new FacesMessage(severity, summary, detail));
-    }
 
 
     public void validarLogin() {
         if (username.equals("") || password.equals("")) {
-            addMessage(FacesMessage.SEVERITY_WARN, "Advertencia", "Los campos estan vacios");
+            JsfUtils.addMessage(FacesMessage.SEVERITY_WARN, "Advertencia", "Los campos estan vacios");
             return;
         }
 
         System.out.println("Validando el login " + username + " " + password);
-        addMessage(FacesMessage.SEVERITY_INFO, "", "Login exitoso");
+        JsfUtils.addMessage(FacesMessage.SEVERITY_INFO, "", "Login exitoso");
         us.setUsername(username);
         us.setNombres(username.toUpperCase());
-        JsfUtils.redirect("procesos/home.xhtml");
+        JsfUtils.redirect("/procesos/home.xhtml");
     }
 
     public String getUsername() {

@@ -1,4 +1,4 @@
-package org.app.demo.services;
+package org.app.demo.services.ejb;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -7,6 +7,7 @@ import jakarta.faces.context.ExternalContext;
 import jakarta.inject.Inject;
 import org.app.demo.config.JsonDateDeserializer;
 import org.app.demo.model.UsuarioSession;
+import org.app.demo.services.interfaces.AppService;
 import org.springframework.http.*;
 import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.RestClientException;

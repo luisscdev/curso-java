@@ -12,12 +12,7 @@ body {
     background-color: #f5f6fa;
     color: #2f3640;
 }
-.ui-password{
-    width: 100% !important;
-}
-.ui-password input{
-    width: 100% !important;
-}
+
 /* ===============================
    LAYOUT PRINCIPAL
 ================================= */
@@ -169,7 +164,13 @@ body {
     width: 100% !important;
 }
 
-/* Si sigue sin aplicar, intenta con el id de tu formulario */
-#formMain .ui-password input {
+.ui-inputtext input{
+    width: 100% !important;
+
+}
+.ui-password{
+    width: 100% !important;
+}
+.ui-password input{
     width: 100% !important;
 }

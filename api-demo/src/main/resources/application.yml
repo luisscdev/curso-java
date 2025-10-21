@@ -1,0 +1,11 @@
+server:
+  port: 8182
+spring:
+  application:
+    name: api-demo
+  profiles:
+    active: dev
+
+
+
+

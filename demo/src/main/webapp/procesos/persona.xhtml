@@ -1,16 +1,75 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="jakarta.faces.html"
       xmlns:ui="jakarta.faces.facelets"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:h="jakarta.faces.html"
+      xmlns:f="jakarta.faces.core"
+      xmlns:p="primefaces">
 
 <ui:composition template="/templates/layout.xhtml">
 
-    <ui:define name="titulo">Página de persona</ui:define>
+    <ui:define name="titulo">Página de persona 🧙‍♀️</ui:define>
 
     <ui:define name="contenido">
-        <h2>Bienvenido Persona 👋</h2>
-        <p>Esta es la página de persona usando la plantilla base.</p>
+        <h:form id="formMain" prependId="false">
+
+            <p:panelGrid columns="1" layout="grid">
+                <p:commandButton icon="pi pi-plus" ajax="false" value="Nuevo"
+                                 actionListener="#{personaMB.nuevo(null, '/procesos/persona.xhtml',false)}"/>
+            </p:panelGrid>
+            <p:dataTable rows="10" paginator="true" paginatorPosition="bottom" id="personas" widgetVar="personas"
+                         value="#{personaMB.personas}" var="item">
+                <f:facet name="header">
+                    <h2>Personas</h2>
+                    <p:commandButton value="Filtrar Activos" process="@this" update="personas"
+                                     actionListener="#{personaMB.loadPersonas('ACTIVO')}" style="width:150px;"/>
+                    <p:spacer width="10"/>
+                    <p:commandButton value="Filtrar Inactivos" process="@this" update="personas"
+                                     actionListener="#{personaMB.loadPersonas('INACTIVO')}" style="width:150px;"/>
+                    <p:spacer width="10"/>
+                    <p:commandButton value="Imprimir" icon="pi pi-print"
+                                     actionListener="#{personaMB.imprimir()}" style="width:150px;"/>
+                </f:facet>
+                <p:column width="50" headerText="Identificación" filterBy="#{item.identificacion}"
+                          filterMatchMode="contains">
+                    <p:outputLabel value="#{item.identificacion}"/>
+                </p:column>
+                <p:column width="50" headerText="Nombre" filterBy="#{item.nombre}" filterMatchMode="contains">
+                    <p:outputLabel value="#{item.nombre}"/>
+                </p:column>
+                <p:column width="50" headerText="Apellido" filterBy="#{item.apellido}" filterMatchMode="contains">
+                    <p:outputLabel value="#{item.apellido}"/>
+                </p:column>
+                <p:column width="25" headerText="Edad" filterBy="#{item.edad}" filterMatchMode="exact">
+                    <p:outputLabel value="#{item.edad}"/>
+                </p:column>
+                <p:column width="100" headerText="Correo" filterBy="#{item.correo}" filterMatchMode="contains">
+                    <p:outputLabel value="#{item.correo}"/>
+                </p:column>
+
+                <p:column width="25" headerText="Estado">
+                    <p:outputLabel value="#{item.estado}"/>
+                </p:column>
+
+                <p:column headerText="***" width="25" style="text-align:center;">
+
+                    <p:commandLink process="@this"
+                                   actionListener="#{personaMB.nuevo(item, '/procesos/persona.xhtml',true)}">
+                        <i class="pi pi-eye" style="color: purple; font-size: 1rem; margin-right: 5px;"></i>
+                    </p:commandLink>
+                    <h:panelGroup rendered="#{item.estado eq 'ACTIVO'}">
+                        <p:commandLink process="@this"
+                                       actionListener="#{personaMB.nuevo(item, '/procesos/persona.xhtml',false)}">
+                            <i class="pi pi-file-edit" style="font-size: 1rem;margin-right: 5px;"></i>
+                        </p:commandLink>
+
+                        <p:commandLink>
+                            <i class="pi pi-trash" style="color: red; font-size: 1rem"></i>
+                        </p:commandLink>
+                    </h:panelGroup>
+                </p:column>
+
+            </p:dataTable>
+        </h:form>
     </ui:define>
 
 </ui:composition>

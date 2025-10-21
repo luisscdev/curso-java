@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="jakarta.faces.facelets"
+      xmlns:h="jakarta.faces.html"
+      xmlns:f="jakarta.faces.core"
+      xmlns:p="primefaces">
+
+<ui:composition template="/templates/layout.xhtml">
+
+
+    <ui:define name="titulo">Registro de persona 🧙‍♀️</ui:define>
+
+    <ui:define name="contenido">
+        <style>
+            .inputext100 {
+                width: 100% !important;
+            }
+        </style>
+        <h:form id="formMain" prependId="false">
+            <p:panel header="Formulario" style="width: 50%; margin: auto;">
+                <p:panelGrid columns="2" layout="grid" style="width:100%;">
+                    <h:panelGroup>
+                        <p:outputLabel value="# Identificación:"/>
+                        <p:inputText required="true" requiredMessage="Ingrese el # de identificación"
+                                     styleClass="inputext100" value="#{registroPersonaMB.persona.identificacion}">
+                            <p:keyFilter mask="num"/>
+                        </p:inputText>
+                    </h:panelGroup>
+                    <h:panelGroup>
+                        <p:outputLabel value="Nombres:"/>
+                        <p:inputText required="true" requiredMessage="Ingrese el nombre" styleClass="inputext100"
+                                     value="#{registroPersonaMB.persona.nombre}"/>
+                    </h:panelGroup>
+                    <h:panelGroup>
+                        <p:outputLabel value="Apellido:"/>
+                        <p:inputText required="true" requiredMessage="Ingrese el apellido" styleClass="inputext100"
+                                     value="#{registroPersonaMB.persona.apellido}"/>
+                    </h:panelGroup>
+                    <h:panelGroup>
+                        <p:outputLabel value="Edad:"/><br/>
+                        <p:inputText required="true" requiredMessage="Ingrese la edad" styleClass="inputext100"
+                                     value="#{registroPersonaMB.persona.edad}">
+                            <p:keyFilter mask="num"/>
+                        </p:inputText>
+                    </h:panelGroup>
+
+                </p:panelGrid>
+                <p:panelGrid columns="1" layout="grid" style="width:100%">
+                    <h:panelGroup>
+                        <p:outputLabel value="Correo:"/><br/>
+                        <p:inputText required="true" requiredMessage="Ingrese el correo electrónico"
+                                     styleClass="inputext100" value="#{registroPersonaMB.persona.correo}"
+                                     style="width:100%">
+
+                        </p:inputText>
+                    </h:panelGroup>
+
+
+                </p:panelGrid>
+                <p:panelGrid columns="1" layout="grid" style="width:100%; text-align: center;">
+                    <h:panelGroup style="text-align: center">
+                        <p:commandButton disabled="#{registroPersonaMB.visualizar}"
+                                         value="#{registroPersonaMB.persona.id eq null?'Registrar':'Editar'}"
+                                         icon="#{registroPersonaMB.persona.id eq null?'pi pi-save':'pi pi-file-edit'}" process="formMain" update="formMain"
+                                         actionListener="#{registroPersonaMB.guardarPersona()}"
+                                         style="margin-right: 5px;"
+                        />
+
+                        <p:commandButton value="Cancelar" icon="pi pi-times" process="@this"
+                                         actionListener="#{registroPersonaMB.regresar()}"
+                                         styleClass="ui-button-danger"
+                                         />
+                    </h:panelGroup>
+                </p:panelGrid>
+            </p:panel>
+        </h:form>
+    </ui:define>
+</ui:composition>
+</html>

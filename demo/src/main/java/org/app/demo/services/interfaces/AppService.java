@@ -1,4 +1,4 @@
-package org.app.demo.services;
+package org.app.demo.services.interfaces;
 
 import jakarta.ejb.Local;
 import jakarta.faces.context.ExternalContext;

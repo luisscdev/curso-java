@@ -1,0 +1,14 @@
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/origami
+    username: sisapp
+    password: sisapp98
+  jpa:
+    show-sql: true
+
+SISTEMA_RUTA_DOCUMENTOS: /documentos-origami/
+
+app:
+  reportes: classpath:reportes/
+  imagenes: classpath:imagenes/

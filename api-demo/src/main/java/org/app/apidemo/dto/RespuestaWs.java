@@ -1,11 +1,11 @@
-package org.app.demo.model;
+package org.app.apidemo.dto;
 
 public class RespuestaWs {
+    private Boolean estado;
     private Object data;
     private String mensaje;
-    private Boolean estado;
 
-    public RespuestaWs() {
+    public RespuestaWs(){
 
     }
 
@@ -13,6 +13,16 @@ public class RespuestaWs {
         this.estado = estado;
         this.data = data;
         this.mensaje = mensaje;
+    }
+
+
+
+    public Boolean getEstado() {
+        return estado;
+    }
+
+    public void setEstado(Boolean estado) {
+        this.estado = estado;
     }
 
     public Object getData() {
@@ -29,13 +39,5 @@ public class RespuestaWs {
 
     public void setMensaje(String mensaje) {
         this.mensaje = mensaje;
-    }
-
-    public Boolean getEstado() {
-        return estado;
-    }
-
-    public void setEstado(Boolean estado) {
-        this.estado = estado;
     }
 }
