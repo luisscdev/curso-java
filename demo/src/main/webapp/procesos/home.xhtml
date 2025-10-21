@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="jakarta.faces.html"
+      xmlns:ui="jakarta.faces.facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/templates/layout.xhtml">
+
+    <ui:define name="titulo">Página de Inicio</ui:define>
+
+    <ui:define name="contenido">
+
+        <style>
+            /* ================================
+               ESTILO DE LA PÁGINA DE INICIO
+            ================================= */
+            .inicio-container {
+                display: flex;
+                flex-direction: column;
+                gap: 2rem;
+                padding: 2rem;
+                animation: fadeIn 0.8s ease-in-out;
+            }
+
+            @keyframes fadeIn {
+                from {
+                    opacity: 0;
+                    transform: translateY(10px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+
+            .inicio-header {
+                background: linear-gradient(135deg, #007bff, #00a8ff);
+                border-radius: 14px;
+                color: white;
+                padding: 2rem 2.5rem;
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: space-between;
+
+                align-items: center;
+                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+            }
+
+            .inicio-header h2 {
+                margin: 0;
+                font-size: 2rem;
+            }
+
+            .inicio-header p {
+                margin: 0.5rem 0 0 0;
+                font-size: 1.1rem;
+                opacity: 0.9;
+            }
+
+            .inicio-header img {
+                width: 100px;
+                height: 100px;
+                border-radius: 50%;
+                box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+            }
+
+            .inicio-cards {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                gap: 1.5rem;
+            }
+
+            .card {
+                background-color: #ffffff;
+                border-radius: 10px;
+                padding: 1.5rem;
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+                transition: transform 0.2s ease, box-shadow 0.2s ease;
+            }
+
+            .card:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+            }
+
+            .card-icon {
+                font-size: 2.5rem;
+                color: #007bff;
+                margin-bottom: 1rem;
+            }
+
+            .card-title {
+                font-size: 1.2rem;
+                font-weight: bold;
+                color: #1e272e;
+            }
+
+            .card-desc {
+                font-size: 0.95rem;
+                color: #555;
+                margin-top: 0.3rem;
+            }
+
+            .inicio-footer {
+                text-align: center;
+                font-size: 0.9rem;
+                color: #888;
+                margin-top: 2rem;
+            }
+        </style>
+
+        <div class="inicio-container">
+
+            <!-- HEADER -->
+            <div class="inicio-header">
+                <div>
+                    <h2>Bienvenido 👋 #{bienvenidaMB.nombres}</h2>
+                    <p>Esta es tu plataforma OrigamiEc — Panel de control principal.</p>
+                </div>
+                <p:graphicImage name="logo.png" library="images"/>
+            </div>
+
+            <!-- TARJETAS -->
+            <div class="inicio-cards">
+                <div class="card">
+                    <i class="pi pi-users card-icon"></i>
+                    <div class="card-title">Gestión de Personas</div>
+                    <div class="card-desc">Administra persona del sistema.</div>
+                </div>
+
+                <div class="card">
+                    <i class="pi pi-briefcase card-icon"></i>
+                    <div class="card-title">Proyectos</div>
+                    <div class="card-desc">Monitorea los proyectos activos y sus indicadores clave.</div>
+                </div>
+
+                <div class="card">
+                    <i class="pi pi-chart-line card-icon"></i>
+                    <div class="card-title">Reportes</div>
+                    <div class="card-desc">Visualiza resultados, métricas y rendimiento general.</div>
+                </div>
+
+                <div class="card">
+                    <i class="pi pi-cog card-icon"></i>
+                    <div class="card-title">Configuración</div>
+                    <div class="card-desc">Gestiona parámetros, acceso y ajustes del sistema.</div>
+                </div>
+            </div>
+
+
+        </div>
+    </ui:define>
+</ui:composition>
+</html>

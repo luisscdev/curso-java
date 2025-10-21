@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="jakarta.faces.html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="jakarta.faces.core">
+
+<h:head>
+    <title>Iniciar sesión | OrigamiEc</title>
+    <h:outputStylesheet library="css" name="style.css" />
+    <style>
+        /* ===========================
+           ESTILO GENERAL DEL LOGIN
+        ============================ */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: "Segoe UI", Roboto, Arial, sans-serif;
+            height: 100vh;
+            display: flex;
+            background-color: #f8f9fb;
+        }
+
+        .login-wrapper {
+            display: flex;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* PANEL IZQUIERDO (branding OrigamiEc) */
+        .login-left {
+            width: 40%;
+            background-color: #1e272e;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: #fff;
+            padding: 2rem;
+        }
+
+        .login-left img {
+            width: 90px;
+            height: 90px;
+            margin-bottom: 1.5rem;
+        }
+
+        .login-left h2 {
+            color: #00a8ff;
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .login-left p {
+            font-size: 1rem;
+            color: #dcdde1;
+            text-align: center;
+            max-width: 300px;
+        }
+
+        /* PANEL DERECHO (formulario) */
+        .login-right {
+            width: 60%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .login-card {
+            background-color: #ffffff;
+            border-radius: 14px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            padding: 2.5rem;
+            width: 400px;
+        }
+
+        .login-card h3 {
+            text-align: center;
+            color: #1e272e;
+            margin-bottom: 1.5rem;
+            font-size: 1.4rem;
+        }
+
+        .login-fields {
+            margin-bottom: 1.5rem;
+        }
+
+        .login-fields label {
+            display: block;
+            font-weight: 500;
+            color: #2c3e50;
+            margin-bottom: 0.3rem;
+        }
+
+        .login-fields input {
+            width: 100%;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid #ced6e0;
+            font-size: 1rem;
+        }
+
+        .login-button {
+            width: 100%;
+            border: none;
+            padding: 0.8rem;
+            font-size: 1.1rem;
+            border-radius: 8px;
+            background-color: #007bff !important;
+            color: #fff !important;
+            transition: background 0.3s;
+        }
+
+        .login-button:hover {
+            background-color: #005dc1 !important;
+        }
+        .ui-password input{
+            width: 100% !important;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 1rem;
+            color: #a4b0be;
+            font-size: 0.8rem;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 800px) {
+            .login-left {
+                display: none;
+            }
+
+            .login-right {
+                width: 100%;
+            }
+
+            .login-card {
+                width: 85%;
+            }
+        }
+    </style>
+</h:head>
+
+<h:body>
+    <div class="login-wrapper">
+        <!-- PANEL IZQUIERDO -->
+        <div class="login-left">
+            <p:graphicImage name="logo.ico" library="images" alt="Logo OrigamiEc"/>
+            <h2>OrigamiEc</h2>
+            <p>Administra, controla y potencia tu sistema con tecnología Jakarta EE.</p>
+        </div>
+
+        <!-- PANEL DERECHO -->
+        <div class="login-right">
+            <h:form id="formMain" prependId="false">
+                <p:growl id="growl" life="4000" showDetail="true"/>
+
+                <div class="login-card">
+                    <h3>Iniciar sesión</h3>
+
+                    <div class="login-fields">
+                        <p:outputLabel for="username" value="Usuario:" />
+                        <p:inputText id="username"
+                                     value="#{loginMB.username}"
+                                     required="true"
+                                     requiredMessage="Ingrese su usuario"/>
+                    </div>
+
+                    <div class="login-fields">
+                        <p:outputLabel for="password" value="Contraseña:" />
+                        <p:password id="password"
+                                    value="#{loginMB.password}"
+                                    feedback="false"
+                                    toggleMask="true"
+                                    required="true"
+                                    requiredMessage="Ingrese su contraseña"/>
+                    </div>
+
+                    <p:commandButton value="Ingresar"
+                                     icon="pi pi-sign-in"
+                                     styleClass="login-button"
+                                     process="@form"
+                                     update="growl"
+                                     action="#{loginMB.validarLogin}"/>
+
+                    <div class="footer">
+                        © 2025 OrigamiEc — Todos los derechos reservados
+                    </div>
+                </div>
+            </h:form>
+        </div>
+    </div>
+</h:body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="jakarta.faces.html"
+      xmlns:ui="jakarta.faces.facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+    <title><ui:insert name="titulo">Mi Aplicación Jakarta EE</ui:insert></title>
+    <h:outputStylesheet library="css" name="style.css"/>
+</h:head>
+
+<h:body>
+    <div class="layout">
+
+        <!-- MENÚ LATERAL -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h:graphicImage library="images" name="logo.ico" alt="Logo" style="width:40px;height:40px;"/>
+                <span class="app-title">OrigamiEc</span>
+            </div>
+
+            <nav class="menu">
+                <h:link outcome="/procesos/home" value="🏠 Inicio" styleClass="menu-item"/><br/>
+                <h:link outcome="/procesos/persona" value="👤 Personas" styleClass="menu-item"/><br/>
+                <h:link outcome="/procesos/configuracion" value="⚙️ Configuración" styleClass="menu-item"/>
+            </nav>
+        </aside>
+
+        <!-- CONTENEDOR PRINCIPAL -->
+        <div class="main-content">
+
+            <!-- CABECERA SUPERIOR -->
+            <header class="topbar">
+                <span class="titulo-pagina">
+                    <ui:insert name="titulo">Dashboard</ui:insert>
+                </span>
+                <span class="usuario">👨‍ #{bienvenidaMB.nombres}</span>
+            </header>
+
+            <!-- CONTENIDO -->
+            <main class="contenido">
+                <ui:insert name="contenido">
+                    <h:outputText value="Bienvenido a tu sistema administrativo."/>
+                </ui:insert>
+            </main>
+
+            <!-- PIE -->
+            <footer class="footer">
+                <p>© 2025 OrigamiEc — Todos los derechos reservados</p>
+            </footer>
+        </div>
+    </div>
+</h:body>
+</html>

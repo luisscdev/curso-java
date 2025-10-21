@@ -1,0 +1,175 @@
+/* ===============================
+   ESTILO GENERAL
+================================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+body {
+    background-color: #f5f6fa;
+    color: #2f3640;
+}
+.ui-password{
+    width: 100% !important;
+}
+.ui-password input{
+    width: 100% !important;
+}
+/* ===============================
+   LAYOUT PRINCIPAL
+================================= */
+.layout {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* ===============================
+   SIDEBAR (MENÚ LATERAL)
+================================= */
+.sidebar {
+    width: 230px;
+    background: #1e272e;
+    color: #dcdde1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding-bottom: 20px;
+    transition: width 0.3s;
+}
+
+.sidebar-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 1.2rem;
+    border-bottom: 1px solid #353b48;
+}
+
+.app-title {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #00a8ff;
+}
+
+.menu {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+}
+
+.menu-item {
+    display: block;
+    color: #dcdde1;
+    text-decoration: none;
+    padding: 10px 14px;
+    border-radius: 6px;
+    margin-bottom: 5px;
+    transition: background 0.3s, color 0.3s;
+    font-weight: 500;
+}
+
+.menu-item:hover {
+    background: #00a8ff;
+    color: #fff;
+}
+
+/* ===============================
+   CONTENIDO PRINCIPAL
+================================= */
+.main-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+/* ===============================
+   BARRA SUPERIOR
+================================= */
+.topbar {
+    background: #ffffff;
+    padding: 0.9rem 1.5rem;
+    border-bottom: 1px solid #dcdde1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.titulo-pagina {
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: #273c75;
+}
+
+.usuario {
+    color: #718093;
+    font-weight: 500;
+}
+
+/* ===============================
+   CONTENIDO CENTRAL
+================================= */
+.contenido {
+    flex: 1;
+    padding: 2rem;
+    background: #f5f6fa;
+}
+
+.contenido h2, .contenido h3 {
+    color: #2f3640;
+    margin-bottom: 1rem;
+}
+
+/* ===============================
+   FOOTER
+================================= */
+.footer {
+    background: #ffffff;
+    padding: 1rem;
+    text-align: center;
+    border-top: 1px solid #dcdde1;
+    font-size: 0.9rem;
+    color: #7f8fa6;
+}
+
+/* ===============================
+   RESPONSIVE
+================================= */
+@media (max-width: 768px) {
+    .sidebar {
+        position: fixed;
+        width: 200px;
+        height: 100vh;
+        z-index: 100;
+        transform: translateX(-220px);
+    }
+
+    .sidebar.active {
+        transform: translateX(0);
+    }
+
+    .topbar {
+        justify-content: flex-start;
+    }
+
+    .contenido {
+        padding: 1.2rem;
+    }
+}
+
+.ui-password input {
+    width: 100% !important;
+}
+
+/* Alternativa más específica */
+.ui-password .ui-inputfield {
+    width: 100% !important;
+}
+
+/* Si sigue sin aplicar, intenta con el id de tu formulario */
+#formMain .ui-password input {
+    width: 100% !important;
+}
