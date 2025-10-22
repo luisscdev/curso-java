@@ -6,7 +6,7 @@
 
 <h:head>
     <title>Iniciar sesión | OrigamiEc</title>
-    <h:outputStylesheet library="css" name="style.css" />
+    <h:outputStylesheet library="css" name="style.css"/>
     <style>
         /* ===========================
            ESTILO GENERAL DEL LOGIN
@@ -113,7 +113,8 @@
         .login-button:hover {
             background-color: #005dc1 !important;
         }
-        .ui-password input{
+
+        .ui-password input {
             width: 100% !important;
         }
 
@@ -149,17 +150,14 @@
             <h2>OrigamiEc</h2>
             <p>Administra, controla y potencia tu sistema con tecnología Jakarta EE.</p>
         </div>
-
         <!-- PANEL DERECHO -->
         <div class="login-right">
             <h:form id="formMain" prependId="false">
                 <p:growl id="growl" life="4000" showDetail="true"/>
-
                 <div class="login-card">
                     <h3>Iniciar sesión sd</h3>
-
                     <div class="login-fields">
-                        <p:outputLabel for="username" value="Usuario:" />
+                        <p:outputLabel for="username" value="Usuario:"/>
                         <p:inputText id="username"
                                      value="#{loginMB.username}"
                                      required="true"
@@ -167,7 +165,7 @@
                     </div>
 
                     <div class="login-fields">
-                        <p:outputLabel for="password" value="Contraseña:" />
+                        <p:outputLabel for="password" value="Contraseña:"/>
                         <p:password id="password"
                                     value="#{loginMB.password}"
                                     feedback="false"

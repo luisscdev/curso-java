@@ -1,77 +1,71 @@
 package org.app.demo.controller;
 
 import jakarta.annotation.PostConstruct;
+import jakarta.faces.application.FacesMessage;
 import jakarta.faces.view.ViewScoped;
-import jakarta.inject.Inject;
 import jakarta.inject.Named;
-import org.app.demo.common.DatosReporte;
 import org.app.demo.common.JsfUtils;
-import org.app.demo.common.ReporteFormato;
-import org.app.demo.common.StatusType;
+import org.app.demo.common.Utils;
 import org.app.demo.model.Persona;
-import org.app.demo.model.ServletSession;
-import org.app.demo.services.interfaces.PersonaService;
+import org.primefaces.PrimeFaces;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Named
 @ViewScoped
 public class PersonaMB implements Serializable {
-    @Inject
-    private PersonaService personaService;
-    @Inject
-    private ServletSession ss;
     private Persona persona;
     private List<Persona> personas;
+    private Integer index;
+    private Boolean visualizar;
 
     @PostConstruct
     public void init() {
-        loadPersonas(StatusType.ACTIVO.name());
+        visualizar = false;
+        persona = new Persona();
+        personas = new ArrayList<Persona>();
     }
 
-    public void loadPersonas(String tipo) {
-        personas = new ArrayList<>();
-        List<Persona> personaTmp = personaService.consultarXEstado(tipo);
-        if (personaTmp != null && personaTmp.size() > 0) {
-            personas.addAll(personaTmp);
-        }
-    }
 
-    public void imprimir() {
-        DatosReporte datosReporte = new DatosReporte();
-        ss.borrarDatos();
-        ss.instanciarParametros();
-        Map<String, Object> parametros = new HashMap<>();
-        parametros.put("NOMBRE_REPORTE", "INFORME DE PERSONAS");
-        datosReporte.setFormato(ReporteFormato.PDF.getCodigo());
-        datosReporte.setNombreArchivo("Personas" + ReporteFormato.PDF.getExtension());
-        datosReporte.setParametros(parametros);
-        datosReporte.setDataSource(Boolean.FALSE);
-        datosReporte.setGestorDocumental(Boolean.FALSE);
-        datosReporte.setNombreReporte("personas");
-        ss.setDatosReporte(datosReporte);
-        ss.setNombreDocumento("Personas");
-        redireccionarReporte();
-    }
-
-    public void redireccionarReporte() {
-        JsfUtils.redirectNewTab("/ReporteWS");
-    }
-
-    public void nuevo(Persona persona, String origen, Boolean visualizar) {
-        ss.borrarDatos();
-        ss.agregarParametro("origen", origen);
-        ss.agregarParametro("visualizar", visualizar);
+    public void editar(Persona persona, Integer index, Boolean visualizar) {
+        this.visualizar = visualizar;
+        this.persona = new Persona();
+        this.index = null;
         if (persona != null) {
-            ss.agregarParametro("persona", persona);
+            this.persona = persona;
+            this.index = index;
         }
-        JsfUtils.redirect("/procesos/_registrarPersona.xhtml");
     }
 
+    public void guardar() {
+        try {
+            if (this.index == null) {
+                personas.add(persona);
+                JsfUtils.addMessage(FacesMessage.SEVERITY_INFO, "Info", "Datos creados correctamente");
+            } else {
+                personas.set(this.index, persona);
+                JsfUtils.addMessage(FacesMessage.SEVERITY_INFO, "Info", "Datos actualizados correctamente");
+            }
+
+            PrimeFaces.current().executeScript("PF('dlgForm').hide()");
+
+            if (Utils.isNotEmpty(personas)) {
+                personas.forEach(data -> {
+                    System.out.println("---> Persona " + data);
+                });
+            }
+
+        } catch (Exception e) {
+            JsfUtils.addMessage(FacesMessage.SEVERITY_ERROR, "Error", e.getMessage());
+
+        }
+    }
+
+    public void eliminar(int index) {
+        personas.remove(index);
+    }
 
     public Persona getPersona() {
         return persona;
@@ -79,6 +73,14 @@ public class PersonaMB implements Serializable {
 
     public void setPersona(Persona persona) {
         this.persona = persona;
+    }
+
+    public Boolean getVisualizar() {
+        return visualizar;
+    }
+
+    public void setVisualizar(Boolean visualizar) {
+        this.visualizar = visualizar;
     }
 
     public List<Persona> getPersonas() {

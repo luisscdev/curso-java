@@ -10,8 +10,6 @@ public class InicializarVariables {
 
     @PostConstruct
     public void onStartup() {
-        // Este código se ejecuta cuando la aplicación se despliega/inicia.
         System.out.println("--->    EJB Singleton de inicio ejecutado. Realizando tareas de arranque...");
-        // initializer.init(); // Llamar a la inicialización del otro bean
     }
 }

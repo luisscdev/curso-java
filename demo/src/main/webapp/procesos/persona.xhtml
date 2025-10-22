@@ -1,75 +1,145 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="jakarta.faces.facelets"
       xmlns:h="jakarta.faces.html"
+      xmlns:p="primefaces"
       xmlns:f="jakarta.faces.core"
-      xmlns:p="primefaces">
+      xmlns:ui="jakarta.faces.facelets">
 
 <ui:composition template="/templates/layout.xhtml">
 
-    <ui:define name="titulo">Página de persona 🧙‍♀️</ui:define>
+    <ui:define name="titulo">Página de persona 🚀️</ui:define>
 
     <ui:define name="contenido">
+        <center>
+            <h2>Personas</h2>
+        </center>
+
         <h:form id="formMain" prependId="false">
-
-            <p:panelGrid columns="1" layout="grid">
-                <p:commandButton icon="pi pi-plus" ajax="false" value="Nuevo"
-                                 actionListener="#{personaMB.nuevo(null, '/procesos/persona.xhtml',false)}"/>
+            <p:panelGrid columns="1" columnClasses="grid" layout="grid">
+                <p:commandButton value="Nuevo" icon="pi pi-plus" onclick="PF('dlgForm').show()"
+                                 actionListener="#{personaMB.editar(null,null,false)}" update="formPersonas"/>
             </p:panelGrid>
-            <p:dataTable rows="10" paginator="true" paginatorPosition="bottom" id="personas" widgetVar="personas"
-                         value="#{personaMB.personas}" var="item">
+
+            <p:dataTable filterEvent="enter" paginator="true" rows="5" paginatorPosition="bottom" rowIndexVar="index"
+                         var="item" value="#{personaMB.personas}" id="personas" widgetVar="personas">
                 <f:facet name="header">
-                    <h2>Personas</h2>
-                    <p:commandButton value="Filtrar Activos" process="@this" update="personas"
-                                     actionListener="#{personaMB.loadPersonas('ACTIVO')}" style="width:150px;"/>
-                    <p:spacer width="10"/>
-                    <p:commandButton value="Filtrar Inactivos" process="@this" update="personas"
-                                     actionListener="#{personaMB.loadPersonas('INACTIVO')}" style="width:150px;"/>
-                    <p:spacer width="10"/>
-                    <p:commandButton value="Imprimir" icon="pi pi-print"
-                                     actionListener="#{personaMB.imprimir()}" style="width:150px;"/>
+                    <center>
+                        <h3>Data de Personas</h3>
+                    </center>
                 </f:facet>
-                <p:column width="50" headerText="Identificación" filterBy="#{item.identificacion}"
-                          filterMatchMode="contains">
-                    <p:outputLabel value="#{item.identificacion}"/>
+
+                <p:column width="50" headerText="# Identificación" filterMatchMode="contains"
+                          filterBy="#{item.identificacion}">
+                    <h:outputText value="#{item.identificacion}"/>
                 </p:column>
-                <p:column width="50" headerText="Nombre" filterBy="#{item.nombre}" filterMatchMode="contains">
-                    <p:outputLabel value="#{item.nombre}"/>
+                <p:column width="50" headerText="Nombre" filterMatchMode="contains"
+                          filterBy="#{item.nombre}">
+                    <h:outputText value="#{item.nombre}"/>
                 </p:column>
-                <p:column width="50" headerText="Apellido" filterBy="#{item.apellido}" filterMatchMode="contains">
-                    <p:outputLabel value="#{item.apellido}"/>
+                <p:column width="50" headerText="Apellido" filterMatchMode="contains"
+                          filterBy="#{item.apellido}">
+                    <h:outputText value="#{item.apellido}"/>
                 </p:column>
-                <p:column width="25" headerText="Edad" filterBy="#{item.edad}" filterMatchMode="exact">
-                    <p:outputLabel value="#{item.edad}"/>
+                <p:column width="50" headerText="Edad" filterMatchMode="exact"
+                          filterBy="#{item.edad}">
+                    <h:outputText value="#{item.edad}"/>
                 </p:column>
-                <p:column width="100" headerText="Correo" filterBy="#{item.correo}" filterMatchMode="contains">
-                    <p:outputLabel value="#{item.correo}"/>
+                <p:column width="150" headerText="Correo" filterMatchMode="contains"
+                          filterBy="#{item.correo}">
+                    <h:outputText value="#{item.correo}"/>
                 </p:column>
 
-                <p:column width="25" headerText="Estado">
-                    <p:outputLabel value="#{item.estado}"/>
-                </p:column>
-
-                <p:column headerText="***" width="25" style="text-align:center;">
-
-                    <p:commandLink process="@this"
-                                   actionListener="#{personaMB.nuevo(item, '/procesos/persona.xhtml',true)}">
-                        <i class="pi pi-eye" style="color: purple; font-size: 1rem; margin-right: 5px;"></i>
-                    </p:commandLink>
-                    <h:panelGroup rendered="#{item.estado eq 'ACTIVO'}">
-                        <p:commandLink process="@this"
-                                       actionListener="#{personaMB.nuevo(item, '/procesos/persona.xhtml',false)}">
-                            <i class="pi pi-file-edit" style="font-size: 1rem;margin-right: 5px;"></i>
+                <p:column headerText="***" width="50">
+                    <center>
+                        <p:commandLink title="Visualizar" onclick="PF('dlgForm').show()"
+                                       actionListener="#{personaMB.editar(item,index,true)}" update="formPersonas">
+                            <i class="pi pi-eye" style="font-size: 1.5rem; color: purple"></i>
                         </p:commandLink>
-
-                        <p:commandLink>
-                            <i class="pi pi-trash" style="color: red; font-size: 1rem"></i>
+                        <p:spacer width="5"/>
+                        <p:commandLink title="Editar" onclick="PF('dlgForm').show()"
+                                       actionListener="#{personaMB.editar(item,index,false)}" update="formPersonas">
+                            <i class="pi pi-file-edit" style="font-size: 1.5rem;"></i>
                         </p:commandLink>
-                    </h:panelGroup>
+                        <p:spacer width="5"/>
+                        <p:commandLink title="eliminar"
+                                       actionListener="#{personaMB.eliminar(index)}" update="personas">
+                            <i class="pi pi-trash" style="font-size: 1.5rem; color: red;"></i>
+                            <p:confirm header="Confirmación" message="¿ESTAS SEGURO DE ELIMINAR ESTE REGISTRO?"
+                                       icon="pi pi-exclamation-triangle"/>
+
+                        </p:commandLink>
+                    </center>
                 </p:column>
 
             </p:dataTable>
+
+
         </h:form>
+
+        <p:dialog header="Formulario de Personas" modal="true" width="50vw" id="dlgForm"
+                  widgetVar="dlgForm">
+            <h:form id="formPersonas">
+                <p:panelGrid columns="2" columnClasses="grid, grid" layout="grid">
+                    <h:panelGroup>
+                        <p:outputLabel for="@next" value="# Identifiación:"/>
+                        <p:inputText required="true" requiredMessage="Ingrese el # de identificaión"
+                                     value="#{personaMB.persona.identificacion}" style="width:100%;"/>
+                    </h:panelGroup>
+                    <h:panelGroup>
+                        <p:outputLabel for="@next" value="Nombre:"/>
+                        <p:inputText required="true" requiredMessage="Ingrese el nombre"
+                                     value="#{personaMB.persona.nombre}" style="width:100%;"/>
+                    </h:panelGroup>
+                    <h:panelGroup>
+                        <p:outputLabel for="@next" value="Apellido:"/>
+                        <p:inputText required="true" requiredMessage="Ingrese el apellido"
+                                     value="#{personaMB.persona.apellido}" style="width:100%;"/>
+                    </h:panelGroup>
+                    <h:panelGroup>
+                        <p:outputLabel for="@next" value="Edad:"/>
+                        <p:inputText required="true" requiredMessage="Ingrese la edad"
+                                     value="#{personaMB.persona.edad}" style="width:100%;">
+                            <p:keyFilter mask="num"/>
+                        </p:inputText>
+                    </h:panelGroup>
+                </p:panelGrid>
+                <p:panelGrid columns="1" columnClasses="grid" layout="grid">
+                    <h:panelGroup>
+                        <p:outputLabel for="@next" value="Correo:"/>
+                        <p:inputText required="true" requiredMessage="Ingrese la correo"
+                                     value="#{personaMB.persona.correo}" style="width:100%;">
+                            <f:validateRegex pattern="^[^@]+@[^@]+\.[a-zA-Z]{2,}$"/>
+                        </p:inputText>
+                    </h:panelGroup>
+                </p:panelGrid>
+
+                <p:panelGrid columns="1" columnClasses="grid" layout="grid">
+
+                    <h:panelGroup>
+                        <center>
+                            <p:commandButton disabled="#{personaMB.visualizar}"
+                                             icon="pi pi-save" value="Registrar"
+                                             update="formPersonas,formMain"
+                                             process="formPersonas"
+                                             actionListener="#{personaMB.guardar()}"/>
+                            <p:spacer width="10"/>
+                            <p:commandButton icon="pi pi-times" value="Cancelar"
+                                             process="@this" style="background:red;"
+                                             onclick="PF('dlgForm').hide()"/>
+                        </center>
+                    </h:panelGroup>
+
+                </p:panelGrid>
+            </h:form>
+        </p:dialog>
+
+
+        <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" responsive="true" width="350">
+            <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no ui-button-flat"
+                             icon="pi pi-times"/>
+            <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-check"/>
+        </p:confirmDialog>
+
     </ui:define>
 
 </ui:composition>

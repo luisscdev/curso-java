@@ -21,9 +21,9 @@ public class LoginMB implements Serializable {
     private String username;
     private String password;
 
-
     @PostConstruct
     public void init() {
+
 
     }
 

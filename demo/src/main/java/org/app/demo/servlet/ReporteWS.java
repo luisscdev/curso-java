@@ -55,11 +55,10 @@ public class ReporteWS extends HttpServlet {
 
             System.out.println("----> parametros Reporte " + ss.getDatosReporte());
             RestTemplate restTemplate = new RestTemplate();
-            InputStream is = null;
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON);
             HttpEntity<Object> requestEntity = new HttpEntity<>(ss.getDatosReporte(), headers);
-            is = new ByteArrayInputStream(restTemplate.exchange(new URI(VariablesInicio.wsDemo + "reporte/generar"),
+            InputStream is = new ByteArrayInputStream(restTemplate.exchange(new URI(VariablesInicio.wsDemo + "reporte/generar"),
                     HttpMethod.POST, requestEntity, byte[].class).getBody());
             System.out.println("//VariablesInicio.wsDemo : " + VariablesInicio.wsDemo);
 
