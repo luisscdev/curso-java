@@ -17,11 +17,12 @@ public class PersonaService {
 
 
     public List<Persona> consultarXEstado(String estado) {
-        return personaRepo.findAllByEstado(estado);
+        return personaRepo.findAllByEstadoOrderByIdAsc(estado);
     }
 
 
     public RespuestaWs guardar(Persona persona) {
+
         Persona personaReponse = personaRepo.save(persona);
 
         return new RespuestaWs(Boolean.TRUE, personaReponse, Constantes.dataCorrecto);
