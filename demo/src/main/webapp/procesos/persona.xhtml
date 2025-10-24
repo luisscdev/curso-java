@@ -26,8 +26,11 @@
                     <p:commandButton value="Filtrar Inactivos" process="@this" update="personas"
                                      actionListener="#{personaMB.loadPersonas('INACTIVO')}" style="width:150px;"/>
                     <p:spacer width="10"/>
-                    <p:commandButton value="Imprimir" icon="pi pi-print"
-                                     actionListener="#{personaMB.imprimir()}" style="width:150px;"/>
+                    <p:commandButton value="Imprimir ACTIVO" icon="pi pi-print"
+                                     actionListener="#{personaMB.imprimir('ACTIVO')}" style="width:200px;"/>
+                    <p:spacer width="10"/>
+                    <p:commandButton value="Imprimir INACTIVOS" icon="pi pi-print"
+                                     actionListener="#{personaMB.imprimir('INACTIVO')}" style="width:200px;"/>
                 </f:facet>
                 <p:column width="50" headerText="Identificación" filterBy="#{item.identificacion}"
                           filterMatchMode="contains">

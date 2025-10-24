@@ -40,18 +40,19 @@ public class PersonaMB implements Serializable {
         }
     }
 
-    public void imprimir() {
+    public void imprimir(String estado) {
         DatosReporte datosReporte = new DatosReporte();
         ss.borrarDatos();
         ss.instanciarParametros();
         Map<String, Object> parametros = new HashMap<>();
-        parametros.put("NOMBRE_REPORTE", "INFORME DE PERSONAS");
+        parametros.put("NOMBRE_REPORTE", "CURSO DE JAVA AVANZADO");
+        parametros.put("estado", estado);
         datosReporte.setFormato(ReporteFormato.PDF.getCodigo());
         datosReporte.setNombreArchivo("Personas" + ReporteFormato.PDF.getExtension());
         datosReporte.setParametros(parametros);
         datosReporte.setDataSource(Boolean.FALSE);
         datosReporte.setGestorDocumental(Boolean.FALSE);
-        datosReporte.setNombreReporte("personas");
+        datosReporte.setNombreReporte("curso_java");
         ss.setDatosReporte(datosReporte);
         ss.setNombreDocumento("Personas");
         redireccionarReporte();
